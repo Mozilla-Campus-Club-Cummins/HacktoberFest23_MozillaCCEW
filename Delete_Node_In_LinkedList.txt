@@ -1,0 +1,286 @@
+//Program to delete node in singly linked list
+public class LinkedList {
+	
+	Node head;
+	public static class Node{
+		int data;
+		Node next;
+		Node(int d){
+			data=d;
+			next=null;
+		}
+	}
+	
+	public static void main(String[] args) {
+		
+		LinkedList list=new LinkedList();
+		
+		list=insertNode(list,3);
+		list=insertNode(list,4);
+		list=insertNode(list,5);
+		list=insertNode(list,6);
+		
+		displaySLL(list);
+		
+		list=deleteFirst(list);
+		System.out.print("List after deleting first node : ");
+		displaySLL(list);
+		
+		
+		list=deleteLast(list);
+		System.out.print("List after deleting last node : ");
+		displaySLL(list);
+		
+		
+		list=deleteWithIndex(list,1);
+		System.out.print("List after deleting node at given position : ");
+		displaySLL(list);
+		
+		list=deleteWithIndex(list,14);
+		System.out.print("List after deleting node at given position : ");
+		displaySLL(list);
+		
+	}
+	
+	public static LinkedList insertNode(LinkedList list,int data) {
+		Node newNode=new Node(data);
+		Node last=list.head;
+		if(list.head==null) {
+			list.head=newNode;
+		}
+		else {
+			while(last.next!=null) {
+				last=last.next;
+			}
+			last.next=newNode;
+		}
+		
+		return list;
+	}
+	
+	public static void displaySLL(LinkedList list) {
+		Node last=list.head;
+		if(list.head==null) {
+			System.out.println("List is empty");
+		}
+		else {
+			while(last!=null) {
+				System.out.print(last.data+"->");
+				last=last.next;
+				
+			}
+			System.out.println("null");
+		}
+		
+	}
+	
+	//Delete first node
+	public static LinkedList deleteFirst(LinkedList list) {
+		Node last=list.head;
+		if(list.head==null) {
+			return list;
+		}
+		else {
+			list.head=last.next;
+			last.next=null;
+		}
+		return list;
+	}
+	
+	//Delete last node
+	public static LinkedList deleteLast(LinkedList list) {
+		Node last=list.head;
+		if(list.head==null) {
+			return list;
+		}
+		else if(list.head.next==null) {
+			list.head=null;
+		}
+		else {
+			while(last.next.next!=null) {
+				last=last.next;
+			}
+			last.next=null;
+		}
+		
+		return list;
+	}
+	
+	//Delete node at give position
+	public static LinkedList deleteWithIndex(LinkedList list,int pos) {
+		Node last=list.head;
+		if(list.head==null) {
+			return list;
+		}
+		else if(pos==1) {
+			list.head=last.next;
+			last.next=null;
+		}
+		else {
+			int counter=1;
+			while(last!=null && counter<=pos-2) {
+				last=last.next;
+				counter++;
+			}
+			if(last==null) {
+				System.out.println("Position beyond range");
+				return list;
+			}
+			Node temp=last.next;
+			last.next=temp.next;
+			temp.next=null;
+		}
+		return list;
+	}
+}
+
+
+
+
+//Program to delete node in doubly linked list
+public class DoublyLL {
+	
+	Node head;
+	public static class Node{
+		int data;
+		Node next;
+		Node prev;
+		public Node(int d) {
+			data=d;
+			next=null;
+			prev=null;
+		}
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		DoublyLL list=new DoublyLL();
+		
+		list=createDLL(list,5);
+		list=createDLL(list,10);
+		list=createDLL(list,15);
+		list=createDLL(list,20);
+		displayDLL(list);
+		
+		list=deleteFirst(list);
+		System.out.print("List after deleting first node : ");
+		displayDLL(list);
+		
+		list=deleteLast(list);
+		System.out.print("List after deleting last node : ");
+		displayDLL(list);
+		
+		list=deleteWithPos(list,2);
+		System.out.print("List after deleting node at given position : ");
+		displayDLL(list);
+		
+		list=deleteWithPos(list,12);
+		System.out.print("List after deleting node at given position : ");
+		displayDLL(list);
+	}
+	
+	public static DoublyLL createDLL(DoublyLL list,int data) {
+		Node newNode=new Node(data);
+		Node last=list.head;
+		if(list.head==null) {
+			list.head=newNode;
+		}
+		else {
+			while(last.next!=null) {
+				last=last.next;
+			}
+			last.next=newNode;
+			newNode.prev=last;
+		}
+		
+		return list;
+	}
+	
+	public static void displayDLL(DoublyLL list) {
+		Node last=list.head;
+		if(list.head==null) {
+			System.out.println("List is empty");
+		}
+		else {
+			while(last!=null) {
+				System.out.print(last.data+"->");
+				last=last.next;
+			}
+			System.out.println("null");
+		}
+	}
+	
+	//Delete first node
+	public static DoublyLL deleteFirst(DoublyLL list) {
+		Node first=list.head;
+		if(list.head==null) {
+			//System.out.println("List is empty");
+			return list;
+		}
+		else if(list.head.next==null) {
+			list.head=null;
+		}
+		else {
+			list.head=first.next;
+			first.next=null;
+			list.head.prev=null;
+		}
+		return list;
+	}
+	
+	//Delete last node
+	public static DoublyLL deleteLast(DoublyLL list) {
+		Node last=list.head;
+		if(list.head==null) {
+			//System.out.println("List is empty");
+			return list;
+		}
+		else if(list.head.next==null) {
+			list.head=null;
+		}
+		else {
+			while(last.next.next!=null) {
+				last=last.next;
+			}
+			last.next.prev=null;
+			last.next=null;
+		}
+		return list;
+	}
+	
+	//Delete node at given position
+	public static DoublyLL deleteWithPos(DoublyLL list,int pos) {
+		Node last=list.head;
+		if(list.head==null) {
+			//System.out.println("List empty");
+			return list;
+		}
+		else if(pos==1) {
+			list.head=last.next;
+			last.next=null;
+			list.head.prev=null;
+		}
+		else {
+			int counter=1;
+			while(last!=null && counter<=pos-2) {
+				last=last.next;
+				counter++;
+			}
+			if(last==null) {
+				System.out.println("Position beyond range");
+				return list;
+			}
+			Node temp=last.next;
+			last.next=temp.next;
+			if(temp.next!=null) {
+				temp.next.prev=last;
+			}
+			temp.next=null;
+			temp.prev=null;
+		}
+		
+		return list;
+	}
+	
+
+}
